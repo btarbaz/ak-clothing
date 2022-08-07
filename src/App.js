@@ -1,6 +1,4 @@
-import './categories.styles.scss';
-import './components/category-item/category-item.component';
-import CategoryItem from './components/category-item/category-item.component';
+import CategoriesMenu from './components/categories-menu/categories-menu.component';
 
 const App = () => {
   const categories = [
@@ -30,14 +28,7 @@ const App = () => {
       imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
     },
   ];
-
-  return (
-    <div className="categories-container">
-      {categories.map(category => {
-        return <CategoryItem key={category.id} category={category} />;
-      })}
-    </div>
-  );
+  return <CategoriesMenu categories={categories} />;
 };
 
 export default App;
