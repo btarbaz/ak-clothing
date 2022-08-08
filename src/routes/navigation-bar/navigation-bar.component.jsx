@@ -12,10 +12,10 @@ const NavigationBar = () => {
         </Link>
         <div className="nav-bar-links-container">
           <Link className="nav-bar-link" to="shop">
-            Shop
+            SHOP
           </Link>
-          <Link className="nav-bar-link" to="shop">
-            Shop
+          <Link className="nav-bar-link" to="sign-in">
+            SIGN IN
           </Link>
         </div>
       </div>
