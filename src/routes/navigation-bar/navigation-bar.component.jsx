@@ -1,9 +1,18 @@
 import { Outlet, Link } from 'react-router-dom';
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
+import { UserContext } from '../../contexts/user.context';
+import { signOutUser } from '../../utils/firebase/firebase.utils';
 import { ReactComponent as AkLogo } from '../../assets/ak.svg';
 import './navigation-bar.styles.scss';
 
 const NavigationBar = () => {
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+  console.log(currentUser);
+  const signOutHandler = async () => {
+    await signOutUser();
+    setCurrentUser(null);
+  };
+
   return (
     <Fragment>
       <div className="nav-bar-container">
@@ -14,9 +23,15 @@ const NavigationBar = () => {
           <Link className="nav-bar-link" to="shop">
             SHOP
           </Link>
-          <Link className="nav-bar-link" to="auth">
-            SIGN IN
-          </Link>
+          {currentUser ? (
+            <span className="nav-bar-link" onClick={signOutHandler}>
+              SIGN OUT
+            </span>
+          ) : (
+            <Link className="nav-bar-link" to="auth">
+              SIGN IN
+            </Link>
+          )}
         </div>
       </div>
       <div>

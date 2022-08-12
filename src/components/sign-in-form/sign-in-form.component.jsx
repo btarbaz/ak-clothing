@@ -8,17 +8,16 @@ import {
   signInWithGooglePopup,
 } from '../../utils/firebase/firebase.utils';
 
-import { useState } from 'react';
-import { getAllByPlaceholderText } from '@testing-library/react';
-
+import { useState, useContext } from 'react';
+import { UserContext } from '../../contexts/user.context';
 const defaultFormFields = {
   email: '',
   password: '',
 };
 const SignInForm = () => {
+  const { setCurrentUser } = useContext(UserContext);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
-  console.log(formFields);
   const clearFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -31,8 +30,8 @@ const SignInForm = () => {
 
     try {
       const { user } = await signInUserWithEmailAndPassword(email, password);
+      setCurrentUser(user);
       clearFields();
-      console.log(user);
     } catch (error) {
       switch (error.code) {
         case 'auth/user-not-found':
