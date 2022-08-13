@@ -6,11 +6,9 @@ import { ReactComponent as AkLogo } from '../../assets/ak.svg';
 import './navigation-bar.styles.scss';
 
 const NavigationBar = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
-  console.log(currentUser);
+  const { currentUser } = useContext(UserContext);
   const signOutHandler = async () => {
     await signOutUser();
-    setCurrentUser(null);
   };
 
   return (
