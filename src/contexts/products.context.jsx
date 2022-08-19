@@ -1,10 +1,10 @@
-import { createContext, useState } from 'react';
-import PRODUCTS from '../shop-data.json';
+import { createContext, useState, useEffect } from 'react';
 
+import { addCollectionAndDocument } from '../utils/firebase/firebase.utils.js';
 export const ProductsContext = createContext({ products: [] });
 
 export const ProductsProvider = ({ children }) => {
-  const [products, setProducts] = useState(PRODUCTS);
+  const [products, setProducts] = useState([]);
   const value = { products };
   return (
     <ProductsContext.Provider value={value}>
