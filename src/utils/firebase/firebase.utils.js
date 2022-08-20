@@ -16,6 +16,8 @@ import {
   setDoc,
   collection,
   writeBatch,
+  query,
+  getDocs,
 } from 'firebase/firestore';
 // getFirestore = database , doc = instance of doc, getDoc = snapshot of ur doc, setDoc = update doc
 
@@ -59,6 +61,21 @@ export const addCollectionAndDocument = async (collectionKey, objectsToAdd) => {
   });
   await batch.commit();
   console.log('done');
+};
+
+export const getCollectionAndDocument = async () => {
+  const collectionRef = collection(db, 'categories');
+  const q = query(collectionRef);
+
+  const querySnapshots = await getDocs(q);
+  const CategoryMap = querySnapshots.docs.reduce((acc, querySnapshot) => {
+    const { title, items } = querySnapshot.data();
+    acc[title.toLowerCase()] = items;
+
+    return acc;
+  }, {});
+
+  return CategoryMap;
 };
 
 export const createUserDocFromAuth = async (
