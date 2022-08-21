@@ -36,7 +36,7 @@ const Checkout = () => {
           <CheckoutItem key={cartItem.id} cartItem={cartItem} />
         ))
       ) : (
-        <h2>Cart is Empty, SHOP NOW !</h2>
+        <h2>Your cart is Empty !</h2>
       )}
       <Total>Total: Rs.{cartTotal}</Total>
     </CheckoutContainer>
