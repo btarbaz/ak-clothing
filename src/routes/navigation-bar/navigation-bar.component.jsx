@@ -1,4 +1,4 @@
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Fragment, useContext } from 'react';
 
 import { UserContext } from '../../contexts/user.context';
@@ -10,7 +10,12 @@ import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
 
 import { ReactComponent as AkLogo } from '../../assets/ak.svg';
-import './navigation-bar.styles.scss';
+import {
+  NavBarContainer,
+  LogoContainer,
+  NavBarLinksContainer,
+  NavBarLink,
+} from './navigation-bar.styles';
 
 const NavigationBar = () => {
   const { currentUser } = useContext(UserContext);
@@ -21,26 +26,22 @@ const NavigationBar = () => {
 
   return (
     <Fragment>
-      <div className="nav-bar-container">
-        <Link className="logo-container" to="/">
+      <NavBarContainer>
+        <LogoContainer to="/">
           <AkLogo className="logo" />
-        </Link>
-        <div className="nav-bar-links-container">
-          <Link className="nav-bar-link" to="shop">
-            SHOP
-          </Link>
+        </LogoContainer>
+        <NavBarLinksContainer>
+          <NavBarLink to="shop">SHOP</NavBarLink>
           {currentUser ? (
-            <span className="nav-bar-link" onClick={signOutHandler}>
+            <NavBarLink as="span" onClick={signOutHandler}>
               SIGN OUT
-            </span>
+            </NavBarLink>
           ) : (
-            <Link className="nav-bar-link" to="auth">
-              SIGN IN
-            </Link>
+            <NavBarLink to="auth">SIGN IN</NavBarLink>
           )}
           <CartIcon />
-        </div>
-      </div>
+        </NavBarLinksContainer>
+      </NavBarContainer>
       {isCartOpen && <CartDropdown />}
       <div>
         <Outlet />
