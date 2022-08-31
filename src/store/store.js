@@ -1,23 +1,39 @@
 import { compose, createStore, applyMiddleware } from 'redux';
-// import logger from 'redux-logger';
+
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+// import { middlewareLogger } from './middleware/logger';
 
 import { rootReducer } from './root-reducer';
-const middlewareLogger = store => next => action => {
-  if (!action.type) {
-    return next(action);
-  }
-  console.log('type', action.type);
-  console.log('payload:', action.payload);
-  console.log('current state', store.getState());
 
-  // syncronos wait until action sends to reducers selector then move ahead
-  next(action);
-
-  console.log('next state', store.getState());
+const persistConfig = {
+  key: 'root',
+  storage,
+  blacklist: ['user'],
 };
 
-const middleWares = [middlewareLogger];
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const composedEnhancers = compose(applyMiddleware(...middleWares));
+// if we are not in production then run logger if not dont and .filter(boolean) bcz we dont want to return false
+const middleWares = [
+  process.env.NODE_ENV !== 'production' && logger,
+  thunk,
+].filter(Boolean);
 
-export const store = createStore(rootReducer, undefined, composedEnhancers);
+// if we are not in production && then run our redux dev tool compose extension || otherwise use redux compose
+const composedEnhancer =
+  (process.env.NODE_ENV !== 'production' &&
+    window &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
+const composedEnhancers = composedEnhancer(applyMiddleware(...middleWares));
+
+export const store = createStore(
+  persistedReducer,
+  undefined,
+  composedEnhancers
+);
+
+export const persistor = persistStore(store);
