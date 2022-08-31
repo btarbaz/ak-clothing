@@ -1,8 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import { Fragment, useContext } from 'react';
+import { Fragment } from 'react';
 import { useSelector } from 'react-redux/es/exports';
-
-import { CartContext } from '../../contexts/cart.context';
 
 import { signOutUser } from '../../utils/firebase/firebase.utils';
 
@@ -17,10 +15,12 @@ import {
   NavBarLink,
 } from './navigation-bar.styles';
 import { selectCurrentUser } from '../../store/user/user.selector';
+import { selectisCartOpen } from '../../store/cart/cart.selector';
 
 const NavigationBar = () => {
   const currentUser = useSelector(selectCurrentUser);
-  const { isCartOpen } = useContext(CartContext);
+  const isCartOpen = useSelector(selectisCartOpen);
+
   const signOutHandler = async () => {
     await signOutUser();
   };
