@@ -7,6 +7,7 @@ import {
 } from './checkout.styles';
 
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
+import PaymentForm from '../../components/payment-form/payment-form.component';
 import {
   selectCartItems,
   selectCartTotal,
@@ -42,6 +43,7 @@ const Checkout = () => {
         <h2>Your cart is Empty !</h2>
       )}
       <Total>Total: Rs.{cartTotal}</Total>
+      <PaymentForm />
     </CheckoutContainer>
   );
 };
