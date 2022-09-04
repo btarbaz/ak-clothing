@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux/es/exports';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   ProductCardContainer,
   ProductCardFooter,
@@ -7,8 +7,9 @@ import {
   ProductCardPrice,
 } from './product-card.styles';
 import Button, { BUTTON_CLASS_TYPE } from '../button/button.component';
-import { addItemToCart } from '../../store/cart/cart.action';
-import { selectCartItems } from '../../store/cart/cart.selector';
+import { addItemToCart } from '../../features/cart/cart-actions';
+import { selectCartItems } from '../../features/cart/cart-slice';
+
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);

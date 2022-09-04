@@ -6,12 +6,12 @@ import Spinner from '../../components/spinner/spinner.component';
 
 import {
   selectCategoriesMap,
-  selectCategoriesIsLoading,
-} from '../../store/categories/category.selector';
+  selectIsLoading,
+} from '../../features/catergories/catergories-slice';
 
 const CatergoriesPreview = () => {
   const categoriesMap = useSelector(selectCategoriesMap);
-  const isLoading = useSelector(selectCategoriesIsLoading);
+  const isLoading = useSelector(selectIsLoading);
   return (
     <Fragment>
       {isLoading ? (

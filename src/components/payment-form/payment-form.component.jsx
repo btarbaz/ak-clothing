@@ -8,10 +8,8 @@ import {
   PaymentButton,
 } from './payment-form.styles';
 import { BUTTON_CLASS_TYPE } from '../button/button.component';
-import { selectCartTotal } from '../../store/cart/cart.selector';
-import { selectCurrentUser } from '../../store/user/user.selector';
-import { clearCartItems } from '../../store/cart/cart.action';
-
+import { selectCartTotal, setClearCart } from '../../features/cart/cart-slice';
+import { selectCurrentUser } from '../../features/user/user-slice';
 const PaymentForm = () => {
   const stripe = useStripe();
   const elements = useElements();
@@ -62,7 +60,7 @@ const PaymentForm = () => {
       alert(paymentRequest.error);
     } else {
       if (paymentRequest.paymentIntent.status === 'succeeded') {
-        dispatch(clearCartItems());
+        dispatch(setClearCart());
         alert('Payment Successful !');
       }
     }

@@ -14,12 +14,12 @@ import {
   NavBarLinksContainer,
   NavBarLink,
 } from './navigation-bar.styles';
-import { selectCurrentUser } from '../../store/user/user.selector';
-import { selectisCartOpen } from '../../store/cart/cart.selector';
+import { selectCurrentUser } from '../../features/user/user-slice';
+import { selectIsCartOpen } from '../../features/cart/cart-slice';
 
 const NavigationBar = () => {
   const currentUser = useSelector(selectCurrentUser);
-  const isCartOpen = useSelector(selectisCartOpen);
+  const isCartOpen = useSelector(selectIsCartOpen);
 
   const signOutHandler = async () => {
     await signOutUser();

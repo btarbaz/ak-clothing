@@ -12,8 +12,8 @@ import {
   addItemToCart,
   removeItemToCart,
   deleteItemToCart,
-} from '../../store/cart/cart.action';
-import { selectCartItems } from '../../store/cart/cart.selector';
+} from '../../features/cart/cart-actions';
+import { selectCartItems } from '../../features/cart/cart-slice';
 
 const CheckoutItem = ({ cartItem }) => {
   const dispatch = useDispatch();
